@@ -121,47 +121,14 @@ def analyze_image(image_path):
 
 # --- SCRIPT UTAMA UNTUK ANALISIS INTERAKTIF ---
 if __name__ == "__main__":
-    image_paths = glob.glob(os.path.join(TEST_IMAGE_FOLDER, '*.jpg')) + \
-                  glob.glob(os.path.join(TEST_IMAGE_FOLDER, '*.png'))
 
-    if not image_paths:
-        print(f"Tidak ada file gambar yang ditemukan di folder '{TEST_IMAGE_FOLDER}'")
-    else:
-        print(f"Ditemukan {len(image_paths)} gambar untuk dianalisis.")
-        
-        # Urutkan file agar pengujian lebih terstruktur
-        for image_path in sorted(image_paths): 
-            print(f"\n--- Menganalisis: {os.path.basename(image_path)} ---")
-            analysis_results = analyze_image(image_path)
-            
-            if isinstance(analysis_results, dict):
-                for parameter, value in analysis_results.items():
-                    print(f"- {parameter:<20}: {value}")
-            else:
-                print(f"  Error: {analysis_results}")
-            print("--------------------------------" + "-"*len(os.path.basename(image_path)))
-            
-            # --- BAGIAN KUNCI: Menunggu input pengguna ---
+    img_src=analyze_image( 'Muhfaiq\\test1\\Foto (203).jpg')
 
-            try:
-                # Coba tampilkan gambar yang diuji
-                img_display = cv2.imread(image_path)
-                max_width = 1280
-                height, width, _ = img_display.shape
-    # Hanya ubah ukuran jika lebar gambar lebih besar dari maksimum
-                if width > max_width:
-        # Hitung rasio dan tinggi yang baru
-                    scale_ratio = max_width / width
-                    new_height = int(height * scale_ratio)
-        # Ubah ukuran gambar
-                    img_resized = cv2.resize(img_display, (max_width, new_height))
-                else:
-                    img_resized = img_display
-                cv2.imshow(f"Menguji: {os.path.basename(image_path)}", img_display)
-                print("\nJendela gambar aktif. Tekan tombol apa saja di jendela gambar untuk lanjut...")
-                cv2.waitKey(0) # Menunggu tombol ditekan di jendela gambar
-                cv2.destroyAllWindows()
-            except:
-                # Fallback jika GUI tidak tersedia
-                input("\nTekan Enter untuk melanjutkan ke foto berikutnya...")
-            # -------------------------------------------
+    result = ",".join(f"{v}" for k, v in img_src.items())
+
+    print(result)
+
+    encrypt = aes.encryption(result,"opadfahadfladfaj")
+    print(encrypt)
+
+    qr.bikinQr(encrypt)
